@@ -1,0 +1,33 @@
+{
+  "name": "online-compiler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "worker": "nodemon src/worker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerefwayne/online-compiler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/zerefwayne/online-compiler/issues"
+  },
+  "homepage": "https://github.com/zerefwayne/online-compiler#readme",
+  "dependencies": {
+    "bullmq": "^5.79.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "ioredis": "^5.11.1",
+    "mongoose": "^9.7.4",
+    "nodemon": "^3.1.14",
+    "uuid": "^14.0.1"
+  }
+}
