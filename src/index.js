@@ -3,7 +3,10 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import submissionRoutes from "./routes/submissionRoutes.js";
+import dns from 'dns';
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
+// ...rest of existing imports below
 const app = express();
 
 app.use(cors());

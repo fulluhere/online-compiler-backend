@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { createSubmission, getSubmission, runCode } from "../controllers/submissionController.js";
+import { createSubmission, getSubmission, getMySubmissions, runCode } from "../controllers/submissionController.js";
+import { verifyToken } from "../middlewares/auth.middleware.js";
+
+
 
 const router = Router();
 
-// HLD Section 4.1
-router.post("/run", runCode);
-router.post("/submissions", createSubmission);
-router.get("/submissions/:id", getSubmission);
+router.post("/run", verifyToken, runCode);
+router.post("/submissions", verifyToken, createSubmission);
+router.get("/submissions", verifyToken, getMySubmissions);
+router.get("/submissions/:id", verifyToken, getSubmission);
 
 export default router;

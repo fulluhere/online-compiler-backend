@@ -4,6 +4,7 @@ import { connectDB } from "./config/db.js";
 import { redisConnection } from "./config/redis.js";
 import Submission from "./models/Submission.js";
 import { judgeSubmission } from "./services/judge.js";
+import { updateScoreOnAccept } from "./services/scoring.service.js";
 
 const CONCURRENCY = 5;
 
@@ -36,6 +37,16 @@ const start = async () => {
       submission.testCasesPassed = result.testCasesPassed;
       submission.completedAt = new Date();
       await submission.save();
+
+      // Update score only on a fully accepted submission
+      // Update score only on a fully accepted submission
+      if (result.verdict === "AC") {
+        try {
+          await updateScoreOnAccept(submission.userID, submission.problemID);
+        } catch (err) {
+          console.error(`Scoring failed for submission ${submissionId}:`, err.message);
+        }
+      }
 
       return result.verdict;
     },

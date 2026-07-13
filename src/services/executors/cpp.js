@@ -2,15 +2,19 @@ import path from "path";
 import { runCommand } from "../../utils/runCommand.js";
 import { classifyRunResult } from "../../utils/classifyRunResult.js";
 
+const CPP_IMAGE = "docode-cpp";
+
 // Per HLD Section 5.1: C++ time limit = 2s
 export const executeCpp = async (jobDir, filepath, input) => {
-  const binaryPath = path.join(jobDir, "main.out");
+  const sourceFile = path.basename(filepath); // e.g. "main.cpp" — relative to /box in container
+  const binaryFile = "main.out";               // relative to /box too
 
   const compileResult = await runCommand({
     cmd: "g++",
-    args: ["-O2", filepath, "-o", binaryPath],
+    args: ["-O2", sourceFile, "-o", binaryFile],
     cwd: jobDir,
     timeoutMs: 10000,
+    image: CPP_IMAGE,
   });
 
   if (compileResult.exitCode !== 0) {
@@ -23,11 +27,12 @@ export const executeCpp = async (jobDir, filepath, input) => {
   }
 
   const runResult = await runCommand({
-    cmd: binaryPath,
+    cmd: `./${binaryFile}`, // relative execution inside /box
     args: [],
     cwd: jobDir,
     input,
     timeoutMs: 2000,
+    image: CPP_IMAGE,
   });
 
   return classifyRunResult(runResult);
