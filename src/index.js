@@ -9,7 +9,6 @@ dns.setServers(['8.8.8.8', '1.1.1.1']);
 // ...rest of existing imports below
 const app = express();
 
-const cors = require("cors");
 
 app.use(
   cors({
