@@ -9,7 +9,17 @@ dns.setServers(['8.8.8.8', '1.1.1.1']);
 // ...rest of existing imports below
 const app = express();
 
-app.use(cors());
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://do-code-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
