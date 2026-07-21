@@ -15,6 +15,8 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://do-code-frontend.vercel.app",
+      "https://onlinejudge.site",
+      "https://www.onlinejudge.site",
     ],
     credentials: true,
   })
